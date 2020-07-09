@@ -13,3 +13,8 @@ after_success:
     - docker build -t yuryshkoda/multi-nginx ./nginx
     - docker build -t yuryshkoda/multi-server ./server
     - docker build -t yuryshkoda/multi-worker ./worker
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+    - docker push yuryshkoda/multi-client
+    - docker push yuryshkoda/multi-nginx
+    - docker push yuryshkoda/multi-server
+    - docker push yuryshkoda/multi-worker
