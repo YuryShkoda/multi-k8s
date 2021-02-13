@@ -1,6 +1,30 @@
 {
-    "AWSEBDockerrunVersion": 2,
-    "containerDefinitions": [
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+      "name": "client",
+      "image": "yuryshkoda/multi-client",
+      "hostname": "client",
+      "essential": false
+    },
+    {
+      "name": "server",
+      "image": "yuryshkoda/multi-server",
+      "hostname": "api",
+      "essential": false
+    },
+    {
+      "name": "worker",
+      "image": "yuryshkoda/multi-worker",
+      "hostname": "worker",
+      "essential": false
+    },
+    {
+      "name": "nginx",
+      "image": "yuryshkoda/multi-nginx",
+      "hostname": "worker",
+      "essential": true,
+      "portMappings": [
         {
             "name": "client",
             "image": "yuryshkoda/multi-client",
@@ -29,12 +53,15 @@
             "essential": true,
             "portMappings": [
                 {
-                    "hostPort": 80,
-                    "containerPort": 80
+                  "hostPort": 80,
+                  "containerPort": 80
                 }
             ],
             "links": ["client", "server"],
             "memory": 128
         }
-    ]
+      ],
+      "links": ["client", "server"]
+    }
+  ]
 }
